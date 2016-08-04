@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tierion/RethinkDB/Twilio Sync Demo</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400" />
+	<link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+
+<div class="container" role="main">
+
+	<nav role="navigation">
+		<a id="create-link" href="#" class="is-selected">Create</a>
+		<a id="verify-link" href="#">Verify</a>
+	</nav>
+
+	<div id="drag-zone" class="box upload">
+
+		
+		<div class="box-input">
+			<img class="icon" src="/img/cloud-upload.png" />
+			<input type="file" name="files" id="file" class="file" />
+			<label for="file"><strong>Choose a file</strong></label> or drag it here.
+		</div>
+
+		
+		<div class="uploading">Reading&hellip;</div>
+		<div class="success">
+			Done!<br/>The hash of the file is:
+			<span id="hash"></span>
+			<a id="submit-link" href="#">Submit</a> or <a id="read-another-link" href="#">read another file</a>.
+		</div>
+		<div class="error">Error. Try again!</div>
+	</div>
+
+
+
+	<footer>
+		<h2>Last documents registered:</h2>
+		<table class="table" id="latest-registered">
+			<tr>
+				<th>File Hash</th><th>Timestamp</th>
+			</tr>
+		</table>
+		
+		
+		<h2>Last documents confirmed:</h2>
+		<table class="table" id="latest-confirmed">
+			<tr>
+				<th>File Hash</th><th>Timestamp</th>
+			</tr>
+		</table>
+	</footer>
+
+</div>
+
+<script id="item-template" type="text/x-jsrender">
+  <tr><td><a href="verify/{{:hash}}">{{:hash}}</a></td><td>{{:timestamp}}</td></tr>
+</script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.80/jsrender.min.js"></script>
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.0.js"></script>
+<script>
+	var REGISTERED_CHANNEL = '<%= config.pubnub.registered_channel %>';
+	var CONFIRMED_CHANNEL = '<%= config.pubnub.confirmed_channel %>';
+
+	var pubnubConfig = {
+		subscribeKey: '<%= config.pubnub.subscribe_key %>'
+	};
+</script>
+<script src="js/index.js"></script>
+<script src="js/pubnub-index.js"></script>
+</body>
+
+</html>

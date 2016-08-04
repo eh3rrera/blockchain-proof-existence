@@ -1,0 +1,165 @@
+body {
+    font-family: Roboto, sans-serif;
+    color: #5b5b5b;
+    background-color: #fff;
+    padding: 2em 1.25em;
+}
+
+.container {
+    width: 100%;
+    max-width: 680px;
+    text-align: center;
+    margin: 0 auto;
+}	
+
+.container nav {
+    margin-bottom: 40px;
+}
+
+.container nav a {
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #999999;
+    font-size: 1.5em;
+}
+.container nav a.is-selected {
+    color: red;
+    border-bottom-color: currentColor;
+}
+.container nav a:not( .is-selected ):hover,
+.container nav a:not( .is-selected ):focus {
+    border-bottom-color: #999999;
+}
+
+.container footer {
+    color: #5b5b5b;
+    text-align: left;
+}
+
+.container footer h2 {
+    font-weight: 200;
+    color: red;
+    font-size: 1.25em;
+    margin-top: 2em;
+}
+
+.container footer table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.container footer td {
+    font-size: 0.9em;
+    padding: 0.5em 0.25em;
+    border-top: 1px solid #dddddd;
+}
+
+.container footer th {
+    font-weight: 200;
+    color: red;
+    padding-bottom: 0.8em;
+}
+.container footer a {
+    color: #5b5b5b;
+    text-decoration: none;
+}
+.container footer a:hover,
+.container footer a:focus {
+    text-decoration: underline;
+}
+
+.box {
+    font-size: 1.25rem;
+    position: relative;
+    padding: 100px 20px;
+}
+.box.upload {
+    outline: 2px dashed #5b5b5b;
+
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+.box.is-dragover {
+    outline-offset: -10px;
+    outline-color: #fff;
+    background-color: #5b5b5b;
+    color: #fff;
+}
+.box a {
+    color: #5b5b5b;
+    text-decoration: none;
+    border-bottom-color: currentColor;
+    border-bottom: 2px solid;
+}
+.box-input span {
+    color: #999999;
+}
+.dragndrop,
+.icon {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+}
+.box.upload .dragndrop {
+    display: inline;
+}
+
+.file {
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.file + label {
+    cursor: pointer;
+}
+
+.box.is-uploading .box-input,
+.box.is-success .box-input,
+.box.is-error .box-input {
+    visibility: hidden;
+}
+
+.uploading,
+.success,
+.error {
+    display: none;
+}
+.box.is-uploading .uploading,
+.box.is-success .success,
+.box.is-error .error {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+
+    -webkit-transform: translateY( -50% );
+    transform: translateY( -50% );
+}
+.uploading {
+    font-style: italic;
+}
+.success {
+    -webkit-animation: appear .25s ease-in-out;
+    animation: appear .25s ease-in-out;
+    line-height: 2em;
+}
+@-webkit-keyframes appear {
+    from	{ -webkit-transform: translateY( -50% ) scale( 0 ); }
+    75%		{ -webkit-transform: translateY( -50% ) scale( 1.1 ); }
+    to		{ -webkit-transform: translateY( -50% ) scale( 1 ); }
+}
+@keyframes appear {
+    from	{ transform: translateY( -50% ) scale( 0 ); }
+    75%		{ transform: translateY( -50% ) scale( 1.1 ); }
+    to		{ transform: translateY( -50% ) scale( 1 ); }
+}
+#hash {
+    display: block;
+    font-size: 0.8em;
+}

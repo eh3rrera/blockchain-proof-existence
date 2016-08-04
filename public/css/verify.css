@@ -1,0 +1,40 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #5b5b5b;
+    background-color: #fff;
+    font-size: 0.9em;
+}
+.title {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    line-height: 1.5em;
+}
+.subtitle {
+    display: block;
+}
+.title, .subtitle {
+    color: #ff0000;
+}
+.container {
+    width: 100%;
+    max-width: 680px;
+    text-align: center;
+    margin: 0 auto;
+}
+div {
+    margin-top: 4em;
+}
+p {
+    line-height: 1.5em;
+    margin-bottom: 1.5em;
+}
+#pdf-link a {
+    font-size: 2em;
+}
+a {
+    color: #ff0000;
+    text-decoration: none;
+}
+a:hover, a:focus {
+    text-decoration: underline;
+}

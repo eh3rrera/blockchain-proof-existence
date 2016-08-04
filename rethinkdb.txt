@@ -1,0 +1,5 @@
+r.dbCreate('existence');
+r.db('existence').tableCreate('subscription');
+r.db('existence').table('subscription').insert({'id': 1, 'subscription-id': ''});
+r.db('existence').tableCreate('receipt');
+r.db('existence').table('receipt').indexCreate('timestamp');

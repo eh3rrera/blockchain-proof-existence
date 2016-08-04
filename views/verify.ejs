@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tierion/RethinkDB/Twilio Sync Demo</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" />
+	<link rel="stylesheet" href="/css/verify.css" />
+</head>
+<body>
+<div class="container">
+
+	<div id="notice">
+		<span class="title">The hash hasn't been submitted to <br/>the Blockchain yet.</span>
+		
+		<p>Keep this page open and wait 10 minutes at most, it will be updated automatically<br/>OR<br/> Bookmark it an check back later.</p>
+	</div>
+	
+	<div id="info">
+		<p>
+			<span class="subtitle">Hash:</span>
+			<small><%= data.hash %></small>
+		</p>
+		
+		<p>
+			<span class="subtitle">Created at:</span>
+			<small><%= data.created_at %></small>
+		</p>
+        
+	</div>
+
+    <div id="links"></div>
+</div>
+
+<script id="message-template" type="text/x-jsrender">
+  <span class="title">The hash was submitted to <br/>the Blockchain.</span>
+</script>
+
+<script id="blockchain-data-template" type="text/x-jsrender">
+	<p>
+        <span class="subtitle">Transaction ID:</span>
+        <small>{{:tx_id}}</small>
+    </p>
+
+	<p>
+        <span class="subtitle">Merkle tree:</span>
+        <small>{{:merkle_root}}</small>
+    </p>
+
+    <p>
+        <span class="subtitle">Submitted to the Blockchain at:</span>
+        <small>{{:timestamp}}</small>
+    </p>
+</script>
+
+<script id="links-template" type="text/x-jsrender">
+	<div class="verify">
+		<p>Verify the blockchain info at:<br/>
+		<small><a href="https://blockexplorer.com/tx/{{:tx_id}}" target="_blank">https://blockexplorer.com/tx/{{:tx_id}}</a></small></p>
+	</div>
+	
+	<div id="pdf-link">
+		<p><a href="/pdf/{{:recepit_id}}" target="_blank">View PDF receipt</a></p>
+	</div>
+</script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.80/jsrender.min.js"></script>
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.0.js"></script>
+<script src="/js/pubnub-verify.js"></script>
+<script>
+    $(document).ready(function() {
+
+        var pubnubConfig = {
+            subscribeKey: '<%= config.pubnub.subscribe_key %>'
+        };
+
+        var addBlockchainInfo = function(params1, params2, params3) {
+            var notice = $('#notice');
+            var info = $('#info');
+            var links = $('#links');
+
+            var template = $.templates('#message-template');
+            notice.html(template.render(params1));
+
+            template = $.templates('#blockchain-data-template');
+            info.append(template.render(params2));
+
+            template = $.templates('#links-template');
+            links.append(template.render(params3));
+        }
+
+        <% if (data.sent_to_blockchain) { %>
+        var params1 = {};
+
+        var params2 = { 
+            tx_id: '<%= data.blockchain_receipt.header.tx_id %>',
+            merkle_root: '<%= data.blockchain_receipt.header.merkle_root %>',
+            timestamp: <%= data.blockchain_receipt.header.timestamp %>
+        };
+
+        var params3 = { 
+            tx_id: '<%= data.blockchain_receipt.header.tx_id %>',
+            recepit_id: '<%= data.id %>'
+        };
+
+        addBlockchainInfo(params1, params2, params3);
+        <% } else { %>
+
+        setupPubNub(pubnubConfig, '<%= data.hash %>', addBlockchainInfo);
+
+        <% } %>
+    });
+</script>
+
+</body>
+
+</html>
