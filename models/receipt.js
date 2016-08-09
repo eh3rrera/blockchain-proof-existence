@@ -64,8 +64,8 @@ module.exports.setup = function (hashClient) {
 
 module.exports.markReceiptsAsSent = function(startTimestamp, endTimestamp) {
     r.table(RECEIPT_TABLE).between(
-            r.ISO8601(startTimestamp),
-            r.ISO8601(endTimestamp), {index: 'timestamp'})
+            r.epochTime(parseInt(startTimestamp)),
+            r.epochTime(parseInt(endTimestamp)), {index: 'timestamp'})
         .update({'sent_to_blockchain': true}).run();
 }
 
