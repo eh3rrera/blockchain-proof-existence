@@ -37,10 +37,10 @@ module.exports.setup = function (hashClient) {
                             );
 
                             // Publish the object so the list of last confirmed files on the main page is update
-                            var formattedTimestamp = new Date(obj.header.timestamp * 1000)
+                            var formattedTimestamp = new Date()
                                                         .toISOString()
                                                         .replace(/T/, ' ')
-                                                        .replace(/.000Z/, ' UTC');
+                                                        .replace(/.\d{3}Z/, ' UTC');
                             pubnub.publish({
                                     channel : config.pubnub.confirmed_channel,
                                     message : {

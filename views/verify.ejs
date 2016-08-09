@@ -43,13 +43,8 @@
     </p>
 
 	<p>
-        <span class="subtitle">Merkle tree:</span>
+        <span class="subtitle">Merkle Root:</span>
         <small>{{:merkle_root}}</small>
-    </p>
-
-    <p>
-        <span class="subtitle">Submitted to the Blockchain at:</span>
-        <small>{{:timestamp}}</small>
     </p>
 </script>
 
@@ -94,13 +89,12 @@
         var params1 = {};
 
         var params2 = { 
-            tx_id: '<%= data.blockchain_receipt.header.tx_id %>',
-            merkle_root: '<%= data.blockchain_receipt.header.merkle_root %>',
-            timestamp: <%= data.blockchain_receipt.header.timestamp %>
+            tx_id: '<%= data.blockchain_receipt.anchors[0].sourceId %>',
+            merkle_root: '<%= data.blockchain_receipt.merkleRoot %>'
         };
 
         var params3 = { 
-            tx_id: '<%= data.blockchain_receipt.header.tx_id %>',
+            tx_id: '<%= data.blockchain_receipt.anchors[0].sourceId %>',
             recepit_id: '<%= data.id %>'
         };
 

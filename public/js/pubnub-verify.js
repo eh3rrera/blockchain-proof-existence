@@ -9,13 +9,12 @@ var setupPubNub = function(pubnubConfig, hash, callback) {
             var params1 = {};
 
             var params2 = { 
-                tx_id: data.message.header.tx_id,
-                merkle_root: data.message.header.merkle_root,
-                timestamp: data.message.header.timestamp
+                tx_id: data.message.anchors[0].sourceId,
+                merkle_root: data.message.merkleRoot
             };
 
             var params3 = { 
-                tx_id: data.message.header.tx_id,
+                tx_id: data.message.anchors[0].sourceId,
                 recepit_id: data.message.id
             };
 
